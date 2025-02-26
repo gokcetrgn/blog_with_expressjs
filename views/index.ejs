@@ -3,17 +3,20 @@
     <p class="author_body">Computer Engineering Student</p>
 </div>
 
-<img src="/img/computer.png" alt="computer image" class="comp-img" width="981" height="528">
+<img src="/img/computer.png" alt="computer image" class="computer" width="981" height="528">
 
 <section class="articles">
-    <h2 class="articles_heading">Latest Posts</h2>
+    <h2 class="article_heading">Latest Posts</h2>
     <ul class="article-ul">
-        <li>
-            <a href="#"> 
-                <span>Post Title</span>
-                <span class="article-list_date">Date</span>
-            </a>
-        </li>
+        <% data.forEach(posts => { %>
+            <li>
+                <a href="#"> 
+                    <span><%= posts.title  %></span>
+                    <span class="article-list_date"><%= posts.createdAt.toDateString() %></span>
+                </a>
+            </li>
+            
+        <% }) %>
     </ul>
 
     <a href="#" class="pagination">&lt; View Older Posts</a>

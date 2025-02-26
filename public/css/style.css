@@ -191,7 +191,7 @@ img {
     font-weight: 400;
 }
 
-.article_ul {
+.article-ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -237,14 +237,17 @@ img {
     border-bottom: 1px solid var(--gray-light);
 }
 
-.article-ul li:hover{
-    filter: none;
+.article-ul:hover li:hover {
+    white-space: pre-wrap ;
 }
 
 .article-ul:hover li {
     filter: blur(3px);
 }
 
+.article-ul li:hover{
+    filter: none;
+}
 .pagination{
     font-size: 1.3rem;
     color: var(--gray);
@@ -255,9 +258,6 @@ img {
 
 .pagination:hover{
     color: var(--black);
-}
-.article-ul:hover li:hover {
-    white-space: pre-wrap ;
 }
 
 .footer{
