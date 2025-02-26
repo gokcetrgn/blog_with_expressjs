@@ -49,23 +49,27 @@ router.get('', async (req,res) => {
     
 });
 
-// router.get('', async (req,res) => {
-//     const locals = 
-//     {
-//         title: "NodeJs Blog",
-//         description: "Simple Blog created with Nodejs, Express and MongoDB."
+/** GET / POST: id */
+router.get('/post/:id', async (req,res) => {
+    const locals = 
+    {
+        title: "NodeJs Blog",
+        description: "Simple Blog created with Nodejs, Express and MongoDB."
     
-//     }
+    }
 
-//     try {
-//         const data = await Post.find();
-//         res.render('index', { locals , data});
-//     } catch (error) {
-//         console.log(error);
-//     }
+    let slug = req.params.id;
+
+
+    try {
+        const data = await Post.findById({_id: slug});
+        res.render('post', { locals , data});
+    } catch (error) {
+        console.log(error);
+    }
 
     
-// });
+});
 
 
 // function insertPostData(){
