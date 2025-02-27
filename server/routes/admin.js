@@ -44,9 +44,9 @@ router.post('/admin', async (req, res) => {
          return res.status(401).json({ message: 'Invalid credentials'});
 
       }
+      const isPasswordValid = await bcrypt.compare(password,user.password);
       if(!isPasswordValid){
-         
-         const isPasswordValid = await bcrypt.compare(password,user.password);
+         return res.status(401).json({ message: 'Invalid credentials'});
    
       }
 
@@ -59,26 +59,26 @@ router.post('/admin', async (req, res) => {
     }
 
 });
- router.post('/dashboard', async (req, res) => {
-res.render('admin/dashboard');
-
-});
 
 const authMiddleware = (req,res, next) => {
    const token = req.cookies.token;
    if(!token){
       return res.status(401).json({ message: "Unauthorized"});
    }
-
+   
    try {
       const decoded = jwt.verify(token, jwtSecret);
       req.userId = decoded.userId;
       next();
    } catch (error) {
       return res.status(401).json({ message: "Unauthorized"});
-
+      
    }
 }
+router.get('/dashboard', authMiddleware, async (req, res) => {
+res.render('admin/dashboard');
+
+});
 // router.post('/admin', async (req, res) => {
 //    try{
 //      const { username, password} = req.body;
