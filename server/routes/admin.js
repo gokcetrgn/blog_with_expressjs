@@ -52,14 +52,33 @@ router.post('/admin', async (req, res) => {
 
       const token = jwt.sign({ userId: user._id}, jwtSecret)
       res.cookie('token', token, { httpOnly:true})
-
+      res.redirect('/dashboard');
 
    }catch(error){
        console.log(error);
     }
 
 });
+ router.post('/dashboard', async (req, res) => {
+res.render('admin/dashboard');
 
+});
+
+const authMiddleware = (req,res, next) => {
+   const token = req.cookies.token;
+   if(!token){
+      return res.status(401).json({ message: "Unauthorized"});
+   }
+
+   try {
+      const decoded = jwt.verify(token, jwtSecret);
+      req.userId = decoded.userId;
+      next();
+   } catch (error) {
+      return res.status(401).json({ message: "Unauthorized"});
+
+   }
+}
 // router.post('/admin', async (req, res) => {
 //    try{
 //      const { username, password} = req.body;
