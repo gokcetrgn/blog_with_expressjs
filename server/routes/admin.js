@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 
 const adminLayout = '../views/layouts/admin';
 
+const jwtSecret = process.env.JWT_SECRET;
 
 /** GET
  * Home
@@ -37,18 +38,44 @@ router.get('/admin', async (req, res) => {
 router.post('/admin', async (req, res) => {
     try{
       const { username, password} = req.body;
-      if(req.body.username === 'admin' && req.body.password === 'password') {
-         res.send("You are logged in.");
-      }  else{
-         res.send("Wrong username or password");
+      
+      const user = await User.findOne({username});
+      if(!user){
+         return res.status(401).json({ message: 'Invalid credentials'});
+
+      }
+      if(!isPasswordValid){
+         
+         const isPasswordValid = await bcrypt.compare(password,user.password);
+   
       }
 
+      const token = jwt.sign({ userId: user._id}, jwtSecret)
+      res.cookie('token', token, { httpOnly:true})
 
-    }catch(error){
+
+   }catch(error){
        console.log(error);
     }
 
 });
+
+// router.post('/admin', async (req, res) => {
+//    try{
+//      const { username, password} = req.body;
+//      if(req.body.username === 'admin' && req.body.password === 'password') {
+//         res.send("You are logged in.");
+//      }  else{
+//         res.send("Wrong username or password");
+//      }
+
+
+//    }catch(error){
+//       console.log(error);
+//    }
+
+// });
+
 
 /** POST 
  * ADMİN  
