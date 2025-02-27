@@ -4,6 +4,9 @@ const router = express.Router();
 
 const Post = require('../models/Posts');
 
+const User = require('../models/User');
+
+
 
 router.get('/about',(req,res) => {
     res.render('about');
