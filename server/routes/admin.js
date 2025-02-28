@@ -82,14 +82,36 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
    const data = await Post.find();
    res.render('admin/dashboard',{
       locals,
-      data
+      data,
+      layout: adminLayout
  });
 
  } catch (error) {
-   
+   console.log(error);
  }
 
 });
+
+/* GET Admin Create new*/
+router.get('/add-post', authMiddleware, async (req, res) => {
+   const locals = {
+      title: "Add Post",
+      description: "Simple Blog with Nodejs"
+   }
+   
+   try {
+     const data = await Post.find();
+     res.render('admin/dashboard',{
+        locals,
+        layout: adminLayout
+   });
+  
+   } catch (error) {
+     console.log(error);
+   }
+  
+  });
+
 // router.post('/admin', async (req, res) => {
 //    try{
 //      const { username, password} = req.body;
