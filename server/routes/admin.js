@@ -112,6 +112,25 @@ router.get('/add-post', authMiddleware, async (req, res) => {
   
   });
 
+
+  /* POST Admin Create new*/
+router.post('/add-post', authMiddleware, async (req, res) => {
+
+   try {
+
+      
+     const newPost = new Post({
+      title: req.body.title,
+      body: req.body.body
+     });
+
+     await Post .create(newPost);
+     res.redirect('/dashboard')
+      } catch (error) {
+     console.log(error);
+   }
+  
+  });
 // router.post('/admin', async (req, res) => {
 //    try{
 //      const { username, password} = req.body;
