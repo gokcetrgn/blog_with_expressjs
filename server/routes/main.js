@@ -9,7 +9,7 @@ const User = require('../models/User');
 
 
 router.get('/about',(req,res) => {
-    res.render('about');
+    res.render('about', currentRoute: '/about');
 });
 
 router.get('', async (req,res) => {
@@ -43,6 +43,7 @@ router.get('', async (req,res) => {
             locals , 
             data,
             curent: page,
+            currentRoute: '/',
             nextPage: hasNextPage ? nextPage : null
         });
     } catch (error) {
@@ -68,7 +69,7 @@ router.get('/post/:id', async (req,res) => {
         description: "Simple Blog created with Nodejs, Express and MongoDB."
     
     }
-        res.render('post', { locals , data});
+        res.render('post', { locals , data, currentRoute:`/post/${slug}`);
     } catch (error) {
         console.log(error);
     }

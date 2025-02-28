@@ -14,6 +14,8 @@ const connectDB = require('./server/config/db');
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
+const {isActiveRoute} = require('./server/helpers/routerHelpers');
+
 // connec to database
 
 connectDB();
@@ -21,6 +23,9 @@ connectDB();
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+
+
+app.locals.isActiveRoute = isActiveRoute;
 
 app.use(cookieParser());
 
